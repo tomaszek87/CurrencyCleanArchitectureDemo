@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Currency Demo</string>
+    <string name="back_button_content_description">Back</string>
+</resources>

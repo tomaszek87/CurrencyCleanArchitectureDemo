@@ -1,0 +1,12 @@
+<resources>
+    <string name="currencies_screen_title">Currencies</string>
+    <string name="currency_details_screen_title">Currency Details</string>
+    <string name="last_rate">Last Rate: %s</string>
+    <string name="date">Date: %s</string>
+    <string name="history_header">History (Last 14 Days)</string>
+    <string name="rate">Rate: %s</string>
+    <string name="retry">Retry</string>
+    <string name="history_item_desc">Rate on %1$s was %2$s%3$s</string>
+    <string name="history_item_desc_significant_change">, which is a change of more than 10%</string>
+    <string name="currency_item_content_description">%1$s, code %2$s, rate %3$s</string>
+</resources>

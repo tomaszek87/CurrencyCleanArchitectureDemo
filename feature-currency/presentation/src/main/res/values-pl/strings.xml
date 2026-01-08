@@ -1,0 +1,12 @@
+<resources>
+    <string name="currencies_screen_title">Kursy Walut</string>
+    <string name="currency_details_screen_title">Szczegóły waluty</string>
+    <string name="last_rate">Ostatni kurs: %s</string>
+    <string name="date">Data: %s</string>
+    <string name="history_header">Historia (ostatnie 14 dni)</string>
+    <string name="rate">Kurs: %s</string>
+    <string name="retry">Spróbuj ponownie</string>
+    <string name="history_item_desc">Kurs w dniu %1$s wynosił %2$s%3$s</string>
+    <string name="history_item_desc_significant_change">, co stanowi zmianę o ponad 10%</string>
+    <string name="currency_item_content_description">%1$s, kod %2$s, kurs %3$s</string>
+</resources>
