@@ -9,12 +9,16 @@ import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import com.tomasz.currency.core.ui.theme.CurrencyDemoTheme
-import org.junit.Assert.assertTrue
+import kotlin.test.Test
+import kotlin.test.assertTrue
 import org.junit.Before
 import org.junit.Rule
-import org.junit.Test
 
 class CurrencyListScreenTest {
+
+    companion object {
+        private const val LOADING_TAG = "loading_indicator"
+    }
 
     @get:Rule
     val composeTestRule = createAndroidComposeRule<ComponentActivity>()
@@ -24,96 +28,80 @@ class CurrencyListScreenTest {
         composeTestRule.enableAccessibilityChecks()
     }
 
-    @Test
-    fun loadingState_showsCircularProgressIndicator() {
-        // Given
-        val state = CurrencyListUiState(isLoading = true)
-
-        // When
+    private fun setContent(
+        state: CurrencyListUiState,
+        onItemClick: (String, String) -> Unit = { _, _ -> },
+        onRetry: () -> Unit = {},
+    ) {
         composeTestRule.setContent {
             CurrencyDemoTheme {
-                CurrencyListContent(state = state, onItemClick = { _, _ -> }, onRetry = { })
+                CurrencyListContent(
+                    state = state,
+                    onItemClick = onItemClick,
+                    onRetry = onRetry
+                )
             }
         }
+    }
 
-        // Then
-        composeTestRule.onNodeWithTag("loading_indicator").assertIsDisplayed()
+    @Test
+    fun loadingState_showsCircularProgressIndicator() {
+        val state = CurrencyListUiState(isLoading = true)
+        setContent(state)
+
+        composeTestRule.onNodeWithTag(LOADING_TAG).assertIsDisplayed()
     }
 
     @Test
     fun successState_showsListOfCurrenciesAndDate() {
-        // Given
         val currencies = listOf(
             CurrencyUi("USD", "US Dollar", "A", "4.50"),
             CurrencyUi("EUR", "Euro", "A", "5.00")
         )
         val state = CurrencyListUiState(currencies = currencies, effectiveDate = "2026-01-01")
+        setContent(state)
 
-        // When
-        composeTestRule.setContent {
-            CurrencyDemoTheme {
-                CurrencyListContent(state = state, onItemClick = { _, _ -> }, onRetry = { })
-            }
+        currencies.forEach { currency ->
+            val description = "${currency.name}, code ${currency.code}, rate ${currency.averageRate}"
+            composeTestRule.onNodeWithContentDescription(description)
+                .assertIsDisplayed()
         }
-
-        // Then
-        composeTestRule.onNodeWithContentDescription("US Dollar, code USD, rate 4.50").assertIsDisplayed()
-        composeTestRule.onNodeWithContentDescription("Euro, code EUR, rate 5.00").assertIsDisplayed()
     }
 
     @Test
     fun errorState_showsErrorMessage() {
-        // Given
         val errorMessage = "Failed to load currencies"
         val state = CurrencyListUiState(error = errorMessage)
+        setContent(state)
 
-        // When
-        composeTestRule.setContent {
-            CurrencyDemoTheme {
-                CurrencyListContent(state = state, onItemClick = { _, _ -> }, onRetry = { })
-            }
-        }
-
-        // Then
         composeTestRule.onNodeWithText(errorMessage).assertIsDisplayed()
     }
 
     @Test
     fun itemClick_triggersCallback() {
-        // Given
         var wasClicked = false
         val currency = CurrencyUi("USD", "US Dollar", "A", "4.50")
         val state = CurrencyListUiState(currencies = listOf(currency))
-        val expectedContentDescription = "US Dollar, code USD, rate 4.50"
+        val expectedDescription = "${currency.name}, code ${currency.code}, rate ${currency.averageRate}"
 
-        composeTestRule.setContent {
-            CurrencyDemoTheme {
-                CurrencyListContent(state = state, onItemClick = { _, _ -> wasClicked = true }, onRetry = { })
-            }
-        }
+        setContent(
+            state = state,
+            onItemClick = { _, _ -> wasClicked = true }
+        )
 
-        // When
-        composeTestRule.onNodeWithContentDescription(expectedContentDescription).performClick()
-
-        // Then
+        composeTestRule.onNodeWithContentDescription(expectedDescription).performClick()
         assertTrue(wasClicked)
     }
 
     @Test
     fun accessibility_currencyItemHasCorrectContentDescription() {
-        // Given
         val currency = CurrencyUi("USD", "US Dollar", "A", "4.50")
         val state = CurrencyListUiState(currencies = listOf(currency))
-        val expectedContentDescription = "US Dollar, code USD, rate 4.50"
+        val expectedDescription = "${currency.name}, code ${currency.code}, rate ${currency.averageRate}"
 
-        // When
-        composeTestRule.setContent {
-            CurrencyDemoTheme {
-                CurrencyListContent(state = state, onItemClick = { _, _ -> }, onRetry = { })
-            }
-        }
+        setContent(state)
 
-        // Then
-        composeTestRule.onNodeWithContentDescription(expectedContentDescription).assertExists()
+        composeTestRule.onNodeWithContentDescription(expectedDescription)
+            .assertIsDisplayed()
     }
 }

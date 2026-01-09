@@ -23,93 +23,49 @@ class CurrencyDetailsScreenSnapshotTest {
         "4.5000",
         isDifferentByTenPercent = false
     )
+
     private val mockDetails = CurrencyDetailsUi(
         code = "EUR",
         name = "euro",
         table = "A",
         currentRate = mockCurrentRate,
         historicalRates = listOf(
-            RateUi(
-                id = "002/A/NBP/2026",
-                effectiveDate = "2026-01-02",
-                averageValue = "4.5890",
-                isDifferentByTenPercent = false
-            ),
-            RateUi(
-                id = "003/A/NBP/2026",
-                effectiveDate = "2026-01-03",
-                averageValue = "5.1000",
-                isDifferentByTenPercent = true
-            ),
-            RateUi(
-                id = "004/A/NBP/2026",
-                effectiveDate = "2026-01-04",
-                averageValue = "4.4500",
-                isDifferentByTenPercent = false
-            ),
-            RateUi(
-                id = "005/A/NBP/2026",
-                effectiveDate = "2026-01-05",
-                averageValue = "4.4500",
-                isDifferentByTenPercent = true
-            )
+            RateUi("002/A/NBP/2026", "2026-01-02", "4.5890", false),
+            RateUi("003/A/NBP/2026", "2026-01-03", "5.1000", true),
+            RateUi("004/A/NBP/2026", "2026-01-04", "4.4500", false),
+            RateUi("005/A/NBP/2026", "2026-01-05", "4.4500", true)
         ).sortedByDescending { it.effectiveDate }
     )
 
-    private fun dataLoadedSnapshot(darkTheme: Boolean) {
-        val mockState = CurrencyDetailsUiState(currencyDetails = mockDetails)
-        paparazzi.snapshot(name = if (darkTheme) "dark" else "light") {
+    private val themes = listOf(
+        false to "light",
+        true to "dark"
+    )
+
+    private val states = listOf(
+        "data_loaded" to CurrencyDetailsUiState(currencyDetails = mockDetails),
+        "loading" to CurrencyDetailsUiState(isLoading = true),
+        "error" to CurrencyDetailsUiState(error = "Details loading error")
+    )
+
+    private fun takeSnapshot(
+        state: CurrencyDetailsUiState,
+        darkTheme: Boolean,
+        nameSuffix: String,
+    ) {
+        paparazzi.snapshot(name = "${nameSuffix}_${if (darkTheme) "dark" else "light"}") {
             CurrencyDemoTheme(darkTheme = darkTheme) {
-                CurrencyDetailsContent(state = mockState)
+                CurrencyDetailsContent(state = state)
             }
         }
     }
 
-    private fun loadingSnapshot(darkTheme: Boolean) {
-        val mockState = CurrencyDetailsUiState(isLoading = true)
-        paparazzi.snapshot(name = if (darkTheme) "loading_dark" else "loading_light") {
-            CurrencyDemoTheme(darkTheme = darkTheme) {
-                CurrencyDetailsContent(state = mockState)
+    @Test
+    fun currencyDetailsAllStatesSnapshots() {
+        for ((name, state) in states) {
+            for ((darkTheme, _) in themes) {
+                takeSnapshot(state, darkTheme, name)
             }
         }
-    }
-
-    private fun errorSnapshot(darkTheme: Boolean) {
-        val mockState = CurrencyDetailsUiState(error = "Details loading error")
-        paparazzi.snapshot(name = if (darkTheme) "error_dark" else "error_light") {
-            CurrencyDemoTheme(darkTheme = darkTheme) {
-                CurrencyDetailsContent(state = mockState)
-            }
-        }
-    }
-
-    @Test
-    fun currencyDetailsDataLoadedSnapshotLight() {
-        dataLoadedSnapshot(darkTheme = false)
-    }
-
-    @Test
-    fun currencyDetailsScreenDataLoadedSnapshotDark() {
-        dataLoadedSnapshot(darkTheme = true)
-    }
-
-    @Test
-    fun currencyDetailsScreenLoadingSnapshotLight() {
-        loadingSnapshot(darkTheme = false)
-    }
-
-    @Test
-    fun currencyDetailsScreenLoadingSnapshotDark() {
-        loadingSnapshot(darkTheme = true)
-    }
-
-    @Test
-    fun currencyDetailsScreenErrorSnapshotLight() {
-        errorSnapshot(darkTheme = false)
-    }
-
-    @Test
-    fun currencyDetailsScreenErrorSnapshotDark() {
-        errorSnapshot(darkTheme = true)
     }
 }

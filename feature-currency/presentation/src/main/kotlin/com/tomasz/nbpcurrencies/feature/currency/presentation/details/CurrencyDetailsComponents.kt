@@ -63,7 +63,7 @@ internal fun DetailsHeader(
 private fun EmptyCurrencyData() {
     Text(
         modifier = Modifier.padding(top = dimensions.paddingM),
-        text = stringResource(R.string.no_current_rate),
+        text = stringResource(R.string.no_current_rate)
     )
 }
 

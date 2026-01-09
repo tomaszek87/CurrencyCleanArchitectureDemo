@@ -47,13 +47,13 @@ internal fun CurrencyItem(
             Text(
                 modifier = Modifier.clearAndSetSemantics { },
                 text = currency.name,
-                style = typography.bodyLarge,
+                style = typography.bodyLarge
             )
 
             Text(
                 modifier = Modifier.clearAndSetSemantics { },
                 text = currency.code,
-                style = typography.bodyMedium,
+                style = typography.bodyMedium
             )
         }
         Text(

@@ -9,9 +9,7 @@ tasks.withType<Test> {
 dependencies {
     implementation(libs.kotlinx.coroutines.core)
 
-    testImplementation(libs.junit.jupiter.api)
-    testRuntimeOnly(libs.junit.jupiter.engine)
-    testRuntimeOnly(libs.junit.platform.launcher)
+    testImplementation(kotlin("test"))
     testImplementation(libs.mockk)
     testImplementation(libs.kotlinx.coroutines.test)
 }

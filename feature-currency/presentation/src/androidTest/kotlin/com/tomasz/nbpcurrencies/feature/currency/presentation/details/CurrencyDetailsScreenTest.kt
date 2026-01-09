@@ -10,118 +10,89 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.onRoot
 import androidx.compose.ui.test.tryPerformAccessibilityChecks
 import com.tomasz.currency.core.ui.theme.CurrencyDemoTheme
+import kotlin.test.Test
+import org.junit.Before
 import org.junit.Rule
-import org.junit.Test
 
 class CurrencyDetailsScreenTest {
+
+    companion object {
+        private const val LOADING_TAG = "loading_indicator"
+    }
 
     @get:Rule
     val composeTestRule = createAndroidComposeRule<ComponentActivity>()
 
-    @Test
-    fun loadingState_showsCircularProgressIndicator() {
-        // Given
-        val state = CurrencyDetailsUiState(isLoading = true)
+    @Before
+    fun setUp() {
+        composeTestRule.enableAccessibilityChecks()
+    }
 
-        // When
+    private fun setContent(state: CurrencyDetailsUiState) {
         composeTestRule.setContent {
             CurrencyDemoTheme {
                 CurrencyDetailsContent(state = state)
             }
         }
+    }
 
-        // Then
-        composeTestRule.onNodeWithTag("loading_indicator").assertIsDisplayed()
+    @Test
+    fun loadingState_showsCircularProgressIndicator() {
+        val state = CurrencyDetailsUiState(isLoading = true)
+        setContent(state)
+
+        composeTestRule.onNodeWithTag(LOADING_TAG).assertIsDisplayed()
     }
 
     @Test
     fun successState_showsCurrencyDetails() {
-        // Given
-        val mockDetails = CurrencyDetailsUi(
-            code = "EUR",
-            name = "euro",
-            table = "A",
-            currentRate = RateUi("001/A/NBP/2026", "2026-01-01", "4.5000", false),
-            historicalRates = listOf(RateUi("002/A/NBP/2026", "2026-01-02", "4.5890", false))
-        )
+        val mockDetails = mockCurrencyDetailsUi()
         val state = CurrencyDetailsUiState(currencyDetails = mockDetails)
+        setContent(state)
 
-        // When
-        composeTestRule.setContent {
-            CurrencyDemoTheme {
-                CurrencyDetailsContent(state = state)
-            }
-        }
-
-        // Then
-        composeTestRule.onNodeWithText("euro").assertIsDisplayed()
-        composeTestRule.onNodeWithText("EUR").assertIsDisplayed()
-        composeTestRule.onNodeWithText("Last Rate: 4.5000").assertIsDisplayed()
+        composeTestRule.onNodeWithText(mockDetails.name).assertIsDisplayed()
+        composeTestRule.onNodeWithText(mockDetails.code).assertIsDisplayed()
+        composeTestRule.onNodeWithText("Last Rate: ${mockDetails.currentRate?.averageValue}").assertIsDisplayed()
     }
 
     @Test
     fun errorState_showsErrorMessage() {
-        // Given
         val errorMessage = "Failed to load details"
         val state = CurrencyDetailsUiState(error = errorMessage)
+        setContent(state)
 
-        // When
-        composeTestRule.setContent {
-            CurrencyDemoTheme {
-                CurrencyDetailsContent(state = state)
-            }
-        }
-
-        // Then
         composeTestRule.onNodeWithText(errorMessage).assertIsDisplayed()
     }
 
     @Test
     fun accessibility_historyItemHasCorrectContentDescription() {
-        // Given
-        val mockDetails = CurrencyDetailsUi(
-            code = "EUR",
-            name = "euro",
-            table = "A",
-            currentRate = RateUi("001/A/NBP/2026", "2026-01-01", "4.5000", false),
-            historicalRates = listOf(RateUi("002/A/NBP/2026", "2026-01-02", "5.1000", true))
-        )
+        val mockDetails = mockCurrencyDetailsUi()
         val state = CurrencyDetailsUiState(currencyDetails = mockDetails)
-        val expectedDescription = "Rate on 2026-01-02 was 5.1000, which is a change of more than 10%"
+        setContent(state)
 
-        // When
-        composeTestRule.setContent {
-            CurrencyDemoTheme {
-                CurrencyDetailsContent(state = state)
-            }
-        }
+        val historicalRate = mockDetails.historicalRates.first()
+        val expectedDescription =
+            "Rate on ${historicalRate.effectiveDate} was ${historicalRate.averageValue}, which is a change of more than 10%"
 
-        // Then
-        composeTestRule.onNodeWithContentDescription(expectedDescription).assertExists()
+        composeTestRule.onNodeWithContentDescription(expectedDescription)
+            .assertIsDisplayed()
     }
 
     @Test
     fun performAccessibilityChecks() {
-        // Given
-        val mockDetails = CurrencyDetailsUi(
+        val mockDetails = mockCurrencyDetailsUi()
+        val state = CurrencyDetailsUiState(currencyDetails = mockDetails)
+        setContent(state)
+
+        composeTestRule.onRoot().tryPerformAccessibilityChecks()
+    }
+
+    private fun mockCurrencyDetailsUi() =
+        CurrencyDetailsUi(
             code = "EUR",
             name = "euro",
             table = "A",
             currentRate = RateUi("001/A/NBP/2026", "2026-01-01", "4.5000", false),
             historicalRates = listOf(RateUi("002/A/NBP/2026", "2026-01-02", "5.1000", true))
         )
-        val state = CurrencyDetailsUiState(currencyDetails = mockDetails)
-
-        composeTestRule.enableAccessibilityChecks()
-
-        // When
-        composeTestRule.setContent {
-            CurrencyDemoTheme {
-                CurrencyDetailsContent(state = state)
-            }
-        }
-
-        // Then
-        composeTestRule.onRoot().tryPerformAccessibilityChecks()
-    }
 }

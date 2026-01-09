@@ -5,12 +5,13 @@ import com.tomasz.nbpcurrencies.feature.currency.domain.usecase.GetCurrenciesUse
 import com.tomasz.nbpcurrencies.feature.currency.presentation.rules.MainDispatcherRule
 import io.mockk.coEvery
 import io.mockk.mockk
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertNull
+import kotlin.test.assertTrue
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertNull
-import org.junit.jupiter.api.Assertions.assertTrue
-import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.extension.ExtendWith
 
 @ExperimentalCoroutinesApi
@@ -21,6 +22,7 @@ class CurrencyListViewModelTest {
     private lateinit var viewModel: CurrencyListViewModel
 
     @Test
+    @DisplayName("When use case succeeds, state contains the correct currency list and effective date")
     fun `when use case is successful, then state contains currency list`() =
         runTest {
             // Given
@@ -38,6 +40,7 @@ class CurrencyListViewModelTest {
         }
 
     @Test
+    @DisplayName("When use case fails, state contains the error message")
     fun `when use case fails, then state contains error`() =
         runTest {
             // Given

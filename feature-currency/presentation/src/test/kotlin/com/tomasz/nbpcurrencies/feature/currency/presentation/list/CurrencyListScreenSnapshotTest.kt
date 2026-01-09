@@ -20,69 +20,22 @@ class CurrencyListScreenSnapshotTest {
     )
 
     private val mockCurrencies = listOf(
-        CurrencyUi(
-            code = "BBD",
-            name = "dolar barbadoski",
-            table = "B",
-            averageRate = "1.7901"
-        ),
-        CurrencyUi(
-            code = "EUR",
-            name = "euro",
-            table = "A",
-            averageRate = "4.2110"
-        ),
-        CurrencyUi(
-            code = "NIO",
-            name = "cordoba oro (Nikaragua)",
-            table = "B",
-            averageRate = "0.0975"
-        ),
-        CurrencyUi(
-            code = "USD",
-            name = "dolar amerykanski",
-            table = "A",
-            averageRate = "3.6901"
-        )
+        CurrencyUi("BBD", "dolar barbadoski", "B", "1.7901"),
+        CurrencyUi("EUR", "euro", "A", "4.2110"),
+        CurrencyUi("NIO", "cordoba oro (Nikaragua)", "B", "0.0975"),
+        CurrencyUi("USD", "dolar amerykanski", "A", "3.6901")
     )
 
-    private fun dataLoadedSnapshot(darkTheme: Boolean) {
-        val mockState = CurrencyListUiState(currencies = mockCurrencies, effectiveDate = "2026-01-01")
-        paparazzi.snapshot(name = if (darkTheme) "dark" else "light") {
+    private fun takeSnapshot(
+        state: CurrencyListUiState,
+        darkTheme: Boolean,
+        nameSuffix: String,
+    ) {
+        paparazzi.snapshot(name = "${nameSuffix}_${if (darkTheme) "dark" else "light"}") {
             CurrencyDemoTheme(darkTheme = darkTheme) {
                 Surface(color = colors.background) {
                     CurrencyListContent(
-                        state = mockState,
-                        onItemClick = { _, _ -> },
-                        onRetry = {}
-                    )
-                }
-            }
-        }
-    }
-
-    private fun loadingSnapshot(darkTheme: Boolean) {
-        val mockState = CurrencyListUiState(isLoading = true)
-        paparazzi.snapshot(name = if (darkTheme) "loading_dark" else "loading_light") {
-            CurrencyDemoTheme(darkTheme = darkTheme) {
-                Surface(color = colors.background) {
-                    CurrencyListContent(
-                        state = mockState,
-                        onItemClick = { _, _ -> },
-                        onRetry = {}
-                    )
-                }
-            }
-        }
-    }
-
-    private fun errorSnapshot(darkTheme: Boolean) {
-        val mockState = CurrencyListUiState(error = "Connection error")
-        paparazzi.snapshot(name = if (darkTheme) "error_dark" else "error_light") {
-            CurrencyDemoTheme(darkTheme = darkTheme) {
-                Surface(color = colors.background) {
-                    CurrencyListContent(
-                        state = mockState,
+                        state = state,
                         onItemClick = { _, _ -> },
                         onRetry = {}
                     )
@@ -92,32 +45,19 @@ class CurrencyListScreenSnapshotTest {
     }
 
     @Test
-    fun currencyListDataLoadedSnapshot() {
-        dataLoadedSnapshot(darkTheme = false)
-    }
+    fun currencyListAllStatesSnapshots() {
+        val themes = listOf(false, true)
 
-    @Test
-    fun currencyListScreenSnapshotDark() {
-        dataLoadedSnapshot(darkTheme = true)
-    }
+        val states = listOf(
+            "data_loaded" to CurrencyListUiState(currencies = mockCurrencies, effectiveDate = "2026-01-01"),
+            "loading" to CurrencyListUiState(isLoading = true),
+            "error" to CurrencyListUiState(error = "Connection error")
+        )
 
-    @Test
-    fun currencyListScreenLoadingSnapshot() {
-        loadingSnapshot(darkTheme = false)
-    }
-
-    @Test
-    fun currencyListScreenLoadingSnapshotDark() {
-        loadingSnapshot(darkTheme = true)
-    }
-
-    @Test
-    fun currencyListScreenErrorSnapshot() {
-        errorSnapshot(darkTheme = false)
-    }
-
-    @Test
-    fun currencyListScreenErrorSnapshotDark() {
-        errorSnapshot(darkTheme = true)
+        for ((name, state) in states) {
+            for (darkTheme in themes) {
+                takeSnapshot(state, darkTheme, name)
+            }
+        }
     }
 }
