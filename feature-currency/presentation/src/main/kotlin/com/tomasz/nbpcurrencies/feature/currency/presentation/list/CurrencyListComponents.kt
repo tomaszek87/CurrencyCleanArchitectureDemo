@@ -13,7 +13,6 @@ import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import com.tomasz.currency.core.ui.modifiers.accessibilityFocusWithClickAction
-import com.tomasz.currency.core.ui.theme.CurrencyTheme.colors
 import com.tomasz.currency.core.ui.theme.CurrencyTheme.dimensions
 import com.tomasz.currency.core.ui.theme.CurrencyTheme.typography
 import com.tomasz.nbpcurrencies.feature.currency.presentation.R
@@ -48,14 +47,13 @@ internal fun CurrencyItem(
             Text(
                 modifier = Modifier.clearAndSetSemantics { },
                 text = currency.name,
-                style = typography.bodyLarge
+                style = typography.bodyLarge,
             )
 
             Text(
                 modifier = Modifier.clearAndSetSemantics { },
                 text = currency.code,
                 style = typography.bodyMedium,
-                color = colors.onSurfaceVariant
             )
         }
         Text(

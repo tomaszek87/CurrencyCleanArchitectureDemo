@@ -128,7 +128,7 @@ private fun CurrencyDetailsScreenPreview() {
                 isDifferentByTenPercent = false
             ),
             RateUi(
-                id = "003/A/NBP/2025",
+                id = "003/A/NBP/2026",
                 effectiveDate = "2026-01-03",
                 averageValue = BigDecimal("5.1000"),
                 isDifferentByTenPercent = true

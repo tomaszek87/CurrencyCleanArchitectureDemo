@@ -42,8 +42,8 @@ class CurrencyDetailsScreenTest {
             code = "EUR",
             name = "euro",
             table = "A",
-            currentRate = RateUi("001/A/NBP/2025", "2025-01-01", BigDecimal("4.5000"), false),
-            historicalRates = listOf(RateUi("002/A/NBP/2025", "2025-01-02", BigDecimal("4.5890"), false))
+            currentRate = RateUi("001/A/NBP/2026", "2026-01-01", BigDecimal("4.5000"), false),
+            historicalRates = listOf(RateUi("002/A/NBP/2026", "2026-01-02", BigDecimal("4.5890"), false))
         )
         val state = CurrencyDetailsUiState(currencyDetails = mockDetails)
 
@@ -84,11 +84,11 @@ class CurrencyDetailsScreenTest {
             code = "EUR",
             name = "euro",
             table = "A",
-            currentRate = RateUi("001/A/NBP/2025", "2025-01-01", BigDecimal("4.5000"), false),
-            historicalRates = listOf(RateUi("002/A/NBP/2025", "2025-01-02", BigDecimal("5.1000"), true))
+            currentRate = RateUi("001/A/NBP/2026", "2026-01-01", BigDecimal("4.5000"), false),
+            historicalRates = listOf(RateUi("002/A/NBP/2026", "2026-01-02", BigDecimal("5.1000"), true))
         )
         val state = CurrencyDetailsUiState(currencyDetails = mockDetails)
-        val expectedDescription = "Rate on 2025-01-02 was 5.1000, which is a change of more than 10%"
+        val expectedDescription = "Rate on 2026-01-02 was 5.1000, which is a change of more than 10%"
 
         // When
         composeTestRule.setContent {
@@ -108,8 +108,8 @@ class CurrencyDetailsScreenTest {
             code = "EUR",
             name = "euro",
             table = "A",
-            currentRate = RateUi("001/A/NBP/2025", "2025-01-01", BigDecimal("4.5000"), false),
-            historicalRates = listOf(RateUi("002/A/NBP/2025", "2025-01-02", BigDecimal("5.1000"), true))
+            currentRate = RateUi("001/A/NBP/2026", "2026-01-01", BigDecimal("4.5000"), false),
+            historicalRates = listOf(RateUi("002/A/NBP/2026", "2026-01-02", BigDecimal("5.1000"), true))
         )
         val state = CurrencyDetailsUiState(currencyDetails = mockDetails)
 

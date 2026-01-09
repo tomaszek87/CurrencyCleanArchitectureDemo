@@ -20,6 +20,7 @@ subprojects {
             jvmToolchain(17)
         }
     }
+
     plugins.withId("org.jetbrains.kotlin.jvm") {
         extensions.configure<KotlinProjectExtension> {
             jvmToolchain(17)
