@@ -4,7 +4,6 @@ import com.tomasz.nbpcurrencies.feature.currency.domain.model.CurrencyDetails
 import com.tomasz.nbpcurrencies.feature.currency.domain.repository.CurrencyRepository
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
-import kotlin.text.format
 
 class GetCurrencyDetailsUseCase(
     private val repository: CurrencyRepository,
