@@ -60,23 +60,6 @@ internal fun DetailsHeader(
 }
 
 @Composable
-private fun EmptyCurrencyData() {
-    Text(
-        modifier = Modifier.padding(top = dimensions.paddingM),
-        text = stringResource(R.string.no_current_rate)
-    )
-}
-
-@Composable
-internal fun HistoryHeader(modifier: Modifier = Modifier) {
-    Text(
-        modifier = modifier,
-        text = stringResource(R.string.history_header),
-        style = typography.titleMedium
-    )
-}
-
-@Composable
 internal fun HistoryItem(
     modifier: Modifier = Modifier,
     rate: RateUi,
@@ -123,4 +106,21 @@ internal fun HistoryItem(
             style = typography.bodyLarge
         )
     }
+}
+
+@Composable
+private fun EmptyCurrencyData() {
+    Text(
+        modifier = Modifier.padding(top = dimensions.paddingM),
+        text = stringResource(R.string.no_current_rate)
+    )
+}
+
+@Composable
+internal fun HistoryHeader(modifier: Modifier = Modifier) {
+    Text(
+        modifier = modifier,
+        text = stringResource(R.string.history_header),
+        style = typography.titleMedium
+    )
 }

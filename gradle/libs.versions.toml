@@ -10,8 +10,6 @@ hilt = "2.57.2"
 hiltNavigationCompose = "1.3.0"
 junit = "4.13.2"
 androidx-compose-ui-test-junit4-accessibility = "1.10.0"
-junitJupiter = "6.0.1"
-junitPlatformLauncher = "6.0.1"
 junitVintage = "6.0.2"
 junitVersion = "1.3.0"
 kotlin = "2.2.0"
@@ -63,10 +61,10 @@ hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", ve
 
 # JUnit
 junit = { group = "junit", name = "junit", version.ref = "junit" }
-junit-jupiter-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junitJupiter" }
-junit-jupiter-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junitJupiter" }
-junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher", version.ref = "junitPlatformLauncher" }
 junit-vintage-engine = { module = "org.junit.vintage:junit-vintage-engine", version.ref = "junitVintage" }
+
+# Kotlin
+kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 
 # Mockk
 mockk = { module = "io.mockk:mockk", version.ref = "mockk" }

@@ -5,12 +5,12 @@ import com.tomasz.nbpcurrencies.feature.currency.domain.usecase.GetCurrencyDetai
 import com.tomasz.nbpcurrencies.feature.currency.presentation.rules.MainDispatcherRule
 import io.mockk.coEvery
 import io.mockk.mockk
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.runTest
-import org.junit.jupiter.api.extension.ExtendWith
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNull
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.runTest
+import org.junit.jupiter.api.extension.ExtendWith
 
 @ExperimentalCoroutinesApi
 @ExtendWith(MainDispatcherRule::class)

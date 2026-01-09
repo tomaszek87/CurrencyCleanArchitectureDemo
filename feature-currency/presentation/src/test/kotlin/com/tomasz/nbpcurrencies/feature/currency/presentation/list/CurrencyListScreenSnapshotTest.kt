@@ -1,10 +1,8 @@
 package com.tomasz.nbpcurrencies.feature.currency.presentation.list
 
-import androidx.compose.material3.Surface
 import app.cash.paparazzi.DeviceConfig
 import app.cash.paparazzi.Paparazzi
 import com.tomasz.currency.core.ui.theme.CurrencyDemoTheme
-import com.tomasz.currency.core.ui.theme.CurrencyTheme.colors
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -33,13 +31,11 @@ class CurrencyListScreenSnapshotTest {
     ) {
         paparazzi.snapshot(name = "${nameSuffix}_${if (darkTheme) "dark" else "light"}") {
             CurrencyDemoTheme(darkTheme = darkTheme) {
-                Surface(color = colors.background) {
-                    CurrencyListContent(
-                        state = state,
-                        onItemClick = { _, _ -> },
-                        onRetry = {}
-                    )
-                }
+                CurrencyListContent(
+                    state = state,
+                    onItemClick = { _, _ -> },
+                    onRetry = {}
+                )
             }
         }
     }

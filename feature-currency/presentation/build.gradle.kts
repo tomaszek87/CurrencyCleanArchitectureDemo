@@ -48,13 +48,13 @@ dependencies {
     kapt(libs.hilt.android.compiler)
     implementation(libs.hilt.navigation.compose)
 
-    testImplementation(kotlin("test"))
+    testImplementation(libs.kotlin.test)
     testImplementation(libs.junit)
     testRuntimeOnly(libs.junit.vintage.engine)
     testImplementation(libs.mockk)
     testImplementation(libs.kotlinx.coroutines.test)
 
-    androidTestImplementation(kotlin("test"))
+    androidTestImplementation(libs.kotlin.test)
     androidTestImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
