@@ -15,7 +15,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
 
-    // in production app fetch this url from remote config
     private const val BASE_URL = "https://api.nbp.pl/api/"
 
     @Provides

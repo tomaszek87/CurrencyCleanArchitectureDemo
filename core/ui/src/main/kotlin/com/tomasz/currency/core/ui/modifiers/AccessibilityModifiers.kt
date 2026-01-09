@@ -21,11 +21,11 @@ fun Modifier.accessibilityFocus(interactionSource: MutableInteractionSource): Mo
 
         this.border(
             border = if (isFocused) {
-                BorderStroke(dimensions.paddingVerySmall, colors.outline)
+                BorderStroke(dimensions.paddingXS, colors.outline)
             } else {
                 BorderStroke(0.dp, Color.Transparent)
             },
-            shape = RoundedCornerShape(dimensions.paddingSmall)
+            shape = RoundedCornerShape(dimensions.paddingS)
         )
     }
 
@@ -37,11 +37,11 @@ fun Modifier.accessibilityFocusWithClickAction(onClick: () -> Unit): Modifier =
         this
             .border(
                 border = if (isFocused) {
-                    BorderStroke(dimensions.paddingVerySmall, colors.outline)
+                    BorderStroke(dimensions.paddingXS, colors.outline)
                 } else {
                     BorderStroke(0.dp, Color.Transparent)
                 },
-                shape = RoundedCornerShape(dimensions.paddingSmall)
+                shape = RoundedCornerShape(dimensions.paddingS)
             )
             .clickable(
                 interactionSource = interactionSource,

@@ -31,22 +31,22 @@ internal fun DetailsHeader(
         modifier = Modifier.fillMaxWidth(),
         elevation = CardDefaults.cardElevation(defaultElevation = dimensions.defaultElevation)
     ) {
-        Column(modifier = Modifier.padding(dimensions.paddingVeryLarge)) {
+        Column(modifier = Modifier.padding(dimensions.paddingXL)) {
             Text(
                 text = name,
                 style = typography.headlineSmall
             )
 
             Text(
-                modifier = Modifier.padding(bottom = dimensions.paddingMedium),
+                modifier = Modifier.padding(bottom = dimensions.paddingM),
                 text = code,
                 style = typography.headlineSmall
             )
 
             currentRate?.let {
                 Text(
-                    modifier = Modifier.padding(top = dimensions.paddingMedium),
-                    text = stringResource(R.string.last_rate, it.averageValue.toPlainString()),
+                    modifier = Modifier.padding(top = dimensions.paddingM),
+                    text = stringResource(R.string.last_rate, it.averageValue),
                     style = typography.bodyLarge
                 )
 
@@ -54,9 +54,17 @@ internal fun DetailsHeader(
                     text = stringResource(R.string.date, it.effectiveDate),
                     style = typography.bodyLarge
                 )
-            }
+            } ?: EmptyCurrencyData()
         }
     }
+}
+
+@Composable
+private fun EmptyCurrencyData() {
+    Text(
+        modifier = Modifier.padding(top = dimensions.paddingM),
+        text = stringResource(R.string.no_current_rate),
+    )
 }
 
 @Composable
@@ -88,14 +96,14 @@ internal fun HistoryItem(
     val description = stringResource(
         R.string.history_item_desc,
         rate.effectiveDate,
-        rate.averageValue.toPlainString(),
+        rate.averageValue,
         accessibilityPercentageString
     )
 
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .padding(vertical = dimensions.paddingLarge)
+            .padding(vertical = dimensions.paddingL)
             .semantics(mergeDescendants = true) {
                 contentDescription = description
             },
@@ -110,7 +118,7 @@ internal fun HistoryItem(
 
         Text(
             modifier = Modifier.clearAndSetSemantics { },
-            text = rate.averageValue.toPlainString(),
+            text = rate.averageValue,
             color = textColor,
             style = typography.bodyLarge
         )

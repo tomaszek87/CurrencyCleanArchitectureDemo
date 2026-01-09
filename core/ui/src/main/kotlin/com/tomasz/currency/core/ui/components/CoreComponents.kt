@@ -26,7 +26,7 @@ fun ErrorRenderer(
         verticalArrangement = Arrangement.Center
     ) {
         Text(text = errorMessage)
-        Spacer(modifier = Modifier.height(dimensions.paddingVeryLarge))
+        Spacer(modifier = Modifier.height(dimensions.paddingXL))
         onRetry?.let {
             Button(onClick = it) {
                 Text(errorActionMessage ?: stringResource(id = R.string.retry_button_text))

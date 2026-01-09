@@ -9,7 +9,6 @@ import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import com.tomasz.currency.core.ui.theme.CurrencyDemoTheme
-import java.math.BigDecimal
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
@@ -45,8 +44,8 @@ class CurrencyListScreenTest {
     fun successState_showsListOfCurrenciesAndDate() {
         // Given
         val currencies = listOf(
-            CurrencyUi("USD", "US Dollar", "A", BigDecimal("4.50")),
-            CurrencyUi("EUR", "Euro", "A", BigDecimal("5.00"))
+            CurrencyUi("USD", "US Dollar", "A", "4.50"),
+            CurrencyUi("EUR", "Euro", "A", "5.00")
         )
         val state = CurrencyListUiState(currencies = currencies, effectiveDate = "2026-01-01")
 
@@ -83,7 +82,7 @@ class CurrencyListScreenTest {
     fun itemClick_triggersCallback() {
         // Given
         var wasClicked = false
-        val currency = CurrencyUi("USD", "US Dollar", "A", BigDecimal("4.50"))
+        val currency = CurrencyUi("USD", "US Dollar", "A", "4.50")
         val state = CurrencyListUiState(currencies = listOf(currency))
         val expectedContentDescription = "US Dollar, code USD, rate 4.50"
 
@@ -103,7 +102,7 @@ class CurrencyListScreenTest {
     @Test
     fun accessibility_currencyItemHasCorrectContentDescription() {
         // Given
-        val currency = CurrencyUi("USD", "US Dollar", "A", BigDecimal("4.50"))
+        val currency = CurrencyUi("USD", "US Dollar", "A", "4.50")
         val state = CurrencyListUiState(currencies = listOf(currency))
         val expectedContentDescription = "US Dollar, code USD, rate 4.50"
 

@@ -9,4 +9,5 @@
     <string name="history_item_desc">Kurs w dniu %1$s wynosił %2$s%3$s</string>
     <string name="history_item_desc_significant_change">, co stanowi zmianę o ponad 10%</string>
     <string name="currency_item_content_description">%1$s, kod %2$s, kurs %3$s</string>
+    <string name="no_current_rate">Brak aktualnego kursu</string>
 </resources>

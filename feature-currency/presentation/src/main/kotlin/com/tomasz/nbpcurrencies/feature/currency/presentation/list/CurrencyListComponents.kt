@@ -27,15 +27,15 @@ internal fun CurrencyItem(
         id = R.string.currency_item_content_description,
         currency.name,
         currency.code,
-        currency.averageRate.toPlainString()
+        currency.averageRate
     )
 
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = dimensions.paddingVerySmall)
+            .padding(horizontal = dimensions.paddingXS)
             .accessibilityFocusWithClickAction(onClick = onItemClick)
-            .padding(horizontal = dimensions.paddingLarge, vertical = dimensions.paddingLarge)
+            .padding(horizontal = dimensions.paddingL, vertical = dimensions.paddingL)
             .semantics(mergeDescendants = true) {
                 contentDescription = description
             },
@@ -58,7 +58,7 @@ internal fun CurrencyItem(
         }
         Text(
             modifier = Modifier.clearAndSetSemantics { },
-            text = currency.averageRate.toPlainString(),
+            text = currency.averageRate,
             style = typography.bodyMedium
         )
     }

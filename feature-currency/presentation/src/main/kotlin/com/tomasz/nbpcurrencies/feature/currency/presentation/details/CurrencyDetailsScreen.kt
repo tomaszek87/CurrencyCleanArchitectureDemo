@@ -23,7 +23,6 @@ import com.tomasz.currency.core.ui.theme.AccessibilityPreview
 import com.tomasz.currency.core.ui.theme.CurrencyDemoTheme
 import com.tomasz.currency.core.ui.theme.CurrencyTheme.dimensions
 import com.tomasz.nbpcurrencies.feature.currency.presentation.R
-import java.math.BigDecimal
 
 @Composable
 internal fun CurrencyDetailsScreen(
@@ -57,7 +56,7 @@ internal fun CurrencyDetailsContent(state: CurrencyDetailsUiState) {
             LazyColumn(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(horizontal = dimensions.paddingVeryLarge)
+                    .padding(horizontal = dimensions.paddingXL)
             ) {
                 item {
                     DetailsHeader(
@@ -70,8 +69,8 @@ internal fun CurrencyDetailsContent(state: CurrencyDetailsUiState) {
                 item {
                     HistoryHeader(
                         modifier = Modifier.padding(
-                            top = dimensions.paddingVeryLarge,
-                            bottom = dimensions.paddingMedium
+                            top = dimensions.paddingXL,
+                            bottom = dimensions.paddingM
                         )
                     )
                 }
@@ -99,7 +98,7 @@ internal fun CurrencyDetailsContent(state: CurrencyDetailsUiState) {
             ErrorRenderer(
                 modifier = Modifier
                     .align(Alignment.Center)
-                    .padding(dimensions.paddingVeryLarge),
+                    .padding(dimensions.paddingXL),
                 errorMessage = it
             )
         }
@@ -112,7 +111,7 @@ private fun CurrencyDetailsScreenPreview() {
     val mockCurrentRate = RateUi(
         "001/A/NBP/2026",
         "2026-01-01",
-        BigDecimal("4.5000"),
+        "4.5000",
         isDifferentByTenPercent = false
     )
     val mockDetails = CurrencyDetailsUi(
@@ -124,25 +123,25 @@ private fun CurrencyDetailsScreenPreview() {
             RateUi(
                 id = "002/A/NBP/2026",
                 effectiveDate = "2026-01-02",
-                averageValue = BigDecimal("4.5890"),
+                averageValue = "4.5890",
                 isDifferentByTenPercent = false
             ),
             RateUi(
                 id = "003/A/NBP/2026",
                 effectiveDate = "2026-01-03",
-                averageValue = BigDecimal("5.1000"),
+                averageValue = "5.1000",
                 isDifferentByTenPercent = true
             ),
             RateUi(
                 id = "004/A/NBP/2026",
                 effectiveDate = "2026-01-04",
-                averageValue = BigDecimal("4.4500"),
+                averageValue = "4.4500",
                 isDifferentByTenPercent = false
             ),
             RateUi(
                 id = "005/A/NBP/2026",
                 effectiveDate = "2026-01-05",
-                averageValue = BigDecimal("4.4500"),
+                averageValue = "4.4500",
                 isDifferentByTenPercent = true
             )
         ).sortedByDescending { it.effectiveDate }

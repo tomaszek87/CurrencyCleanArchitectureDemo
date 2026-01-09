@@ -24,7 +24,7 @@ data class CurrencyDetailsUi(
 data class RateUi(
     val id: String,
     val effectiveDate: String,
-    val averageValue: BigDecimal,
+    val averageValue: String,
     val isDifferentByTenPercent: Boolean,
 )
 
@@ -49,7 +49,7 @@ fun Rate.toUi(currentRate: BigDecimal): RateUi {
     return RateUi(
         id = id,
         effectiveDate = effectiveDate,
-        averageValue = averageRate,
+        averageValue = averageRate.toPlainString(),
         isDifferentByTenPercent = percentageDiff > BigDecimal("0.1")
     )
 }

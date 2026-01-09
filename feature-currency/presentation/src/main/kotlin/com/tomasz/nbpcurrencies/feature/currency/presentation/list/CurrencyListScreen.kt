@@ -23,7 +23,6 @@ import com.tomasz.currency.core.ui.theme.CurrencyDemoTheme
 import com.tomasz.currency.core.ui.theme.CurrencyTheme.colors
 import com.tomasz.currency.core.ui.theme.CurrencyTheme.dimensions
 import com.tomasz.nbpcurrencies.feature.currency.presentation.R
-import java.math.BigDecimal
 
 @Composable
 internal fun CurrencyListScreen(
@@ -86,7 +85,7 @@ internal fun CurrencyListContent(
                 onRetry = onRetry,
                 modifier = Modifier
                     .align(Alignment.Center)
-                    .padding(dimensions.paddingVeryLarge)
+                    .padding(dimensions.paddingXL)
             )
         }
     }
@@ -100,25 +99,25 @@ private fun CurrencyListScreenPreview() {
             code = "BBD",
             name = "dolar barbadoski",
             table = "B",
-            averageRate = BigDecimal("1.7901")
+            averageRate = "1.7901"
         ),
         CurrencyUi(
             code = "EUR",
             name = "euro",
             table = "A",
-            averageRate = BigDecimal("4.2110")
+            averageRate = "4.2110"
         ),
         CurrencyUi(
             code = "NIO",
             name = "cordoba oro (Nikaragua)",
             table = "B",
-            averageRate = BigDecimal("0.0975")
+            averageRate = "0.0975"
         ),
         CurrencyUi(
             code = "USD",
-            name = "dolar amerykański",
+            name = "dolar amerykanski",
             table = "A",
-            averageRate = BigDecimal("3.6901")
+            averageRate = "3.6901"
         )
     )
     val mockState = CurrencyListUiState(currencies = mockCurrencies, effectiveDate = "2026-01-01")

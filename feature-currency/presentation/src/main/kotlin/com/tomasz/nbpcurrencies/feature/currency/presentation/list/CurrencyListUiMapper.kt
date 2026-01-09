@@ -2,7 +2,6 @@ package com.tomasz.nbpcurrencies.feature.currency.presentation.list
 
 import androidx.compose.runtime.Immutable
 import com.tomasz.nbpcurrencies.feature.currency.domain.model.Currency
-import java.math.BigDecimal
 
 data class CurrencyListUiState(
     val isLoading: Boolean = false,
@@ -16,7 +15,7 @@ data class CurrencyUi(
     val code: String,
     val name: String,
     val table: String,
-    val averageRate: BigDecimal,
+    val averageRate: String,
 )
 
 fun Currency.toUi(): CurrencyUi {
@@ -24,7 +23,7 @@ fun Currency.toUi(): CurrencyUi {
         code = code,
         name = name,
         table = table,
-        averageRate = averageRate
+        averageRate = averageRate.toPlainString()
     )
 }
 

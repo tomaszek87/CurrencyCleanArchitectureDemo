@@ -9,4 +9,5 @@
     <string name="history_item_desc">Rate on %1$s was %2$s%3$s</string>
     <string name="history_item_desc_significant_change">, which is a change of more than 10%</string>
     <string name="currency_item_content_description">%1$s, code %2$s, rate %3$s</string>
+    <string name="no_current_rate">No current rate available</string>
 </resources>

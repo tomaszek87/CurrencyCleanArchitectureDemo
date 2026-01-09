@@ -5,11 +5,11 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 data class Dimensions(
-    val paddingVerySmall: Dp = 2.dp,
-    val paddingSmall: Dp = 4.dp,
-    val paddingMedium: Dp = 8.dp,
-    val paddingLarge: Dp = 12.dp,
-    val paddingVeryLarge: Dp = 16.dp,
+    val paddingXS: Dp = 2.dp,
+    val paddingS: Dp = 4.dp,
+    val paddingM: Dp = 8.dp,
+    val paddingL: Dp = 12.dp,
+    val paddingXL: Dp = 16.dp,
     val defaultElevation: Dp = 4.dp,
 )
 
