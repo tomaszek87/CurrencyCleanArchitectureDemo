@@ -34,12 +34,15 @@ internal fun CurrencyDetailsScreen(
     val currentUpdateTopAppBarAction by rememberUpdatedState(updateTopAppBarAction)
     val state by viewModel.state.collectAsStateWithLifecycle()
 
-    LaunchedEffect(table, code) {
+    LaunchedEffect(Unit) {
         currentUpdateTopAppBarAction(
             R.string.currency_details_screen_title,
             null,
             true
         )
+    }
+
+    LaunchedEffect(table, code) {
         viewModel.getCurrencyDetails(table, code)
     }
 
