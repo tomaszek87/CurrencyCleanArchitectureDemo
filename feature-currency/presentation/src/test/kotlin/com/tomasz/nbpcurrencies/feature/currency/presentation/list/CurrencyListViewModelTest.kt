@@ -11,11 +11,9 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNull
 import kotlin.test.assertTrue
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.extension.ExtendWith
 
-@ExperimentalCoroutinesApi
 @ExtendWith(MainDispatcherRule::class)
 class CurrencyListViewModelTest {
 
